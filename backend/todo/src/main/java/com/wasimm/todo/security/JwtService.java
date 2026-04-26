@@ -8,11 +8,14 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-
+import org.springframework.beans.factory.annotation.Value;
 @Service
 public class JwtService {
 
-    private final String SECRET_KEY = "your-very-secret-key-change-this";
+  //  private final String SECRET_KEY = "your-very-secret-key-change-this";
+
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 
     public String generateToken(User user) {
 
