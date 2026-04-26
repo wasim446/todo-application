@@ -30,6 +30,6 @@ App runs at:
 - Frontend → http://localhost:4200
 ##===============================================
 
-JWT_SECRET = your_secret_here
+jwt.secret = your_secret_here
 USER_NAME = your_secret_here
 PASSWORD = your_db_password_here
