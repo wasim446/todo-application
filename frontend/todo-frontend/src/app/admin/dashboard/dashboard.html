@@ -1,0 +1,130 @@
+<div>
+
+    <section class="stats">
+
+        <div class="dashboard-cards">
+            <div class="card-box total-users">
+                <h3>Total Users</h3>
+                <h2>{{ totalUsers }}</h2>
+            </div>
+
+            <div class="card-box total-todos">
+                <h3>Total To Dos</h3>
+                <h2>{{ totalToDos }}</h2>
+            </div>
+
+            <div class="card-box total-admins">
+                <h3>Total Admins</h3>
+                <h2>{{ totalAdmins }}</h2>
+            </div>
+
+            <div class="card-box system-status">
+                <h3>System Status</h3>
+                <h2>Running</h2>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- ===== Recent Users Table ===== -->
+    <section class="table-section">
+        <h3 class="register-user">Recent Registered Users</h3>
+
+        <div *ngIf="loading; else usersTable">
+            Loading users...
+        </div>
+
+        <ng-template #usersTable>
+            <div class="table-container">
+                <table *ngIf="users.length > 0;  else noUsers" class="table" class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Registered At</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let user of users">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <span class="role-badge" [ngClass]="{
+    'admin-role': isAdminss(user),
+    'user-role': !isAdminss(user)
+  }">
+                                    {{ isAdminss(user) ? 'Admin Role' : 'User Role' }}
+                                </span>
+                            </td>
+                            <td>{{ user.createdAt | date:'medium' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-template>
+        <ng-template #noUsers>
+            <p>No users found</p>
+        </ng-template>
+
+        <!-- <div *ngIf="users.length === 0 && !loading">
+                    No users found.
+                </div>
+
+                <div *ngIf="loading">
+                    Loading users...
+                </div> -->
+    </section>
+
+
+
+    <section class="table-section">
+        <h3 class="user-tasks">All Users Tasks</h3>
+
+        <div *ngIf="isTasksLoading; else tasksTable">
+            Loading tasks...
+        </div>
+
+        <ng-template #tasksTable>
+            <div class="table-container">
+                <table *ngIf="tasks.length > 0; else noTasks" class="table" class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>User</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let task of tasks">
+                            <td>{{ task.id }}</td>
+                            <td>{{ task.title }}</td>
+                            <td>{{ task.description }}</td>
+                            <td>
+                                <span class="status-badge" [ngClass]="task.completed ? 'completed' : 'pending'">
+                                    {{ task.completed ? 'Completed' : 'Pending' }}
+                                </span>
+                            </td>
+                            <td>{{ task.createdBy }}</td>
+                            <td>{{ task.createdDate | date:'medium' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-template>
+        <ng-template #noTasks>
+            <p>No tasks found</p>
+        </ng-template>
+
+    </section>
+
+
+</div>

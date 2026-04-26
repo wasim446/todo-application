@@ -1,0 +1,93 @@
+<!doctype html>
+
+<head>
+  <style>
+
+
+  </style>
+
+</head>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow p-4" style="width: 400px;">
+    <h3 class="text-center mb-4">Login</h3>
+
+    <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" formControlName="email" name="email" class="form-control" placeholder="Enter Email">
+
+        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+          <small class="text-danger" *ngIf="loginForm.get('email')?.errors?.['required']">
+            Email is required
+          </small>
+          <small class="text-danger" *ngIf="loginForm.get('email')?.errors?.['pattern']">
+            Enter valid email address
+          </small>
+
+          <!-- Backend validation -->
+          <small class="text-danger" *ngIf="validationErrors?.email">
+            {{ validationErrors.email }}
+          </small>
+
+        </div>
+
+
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" formControlName="password" class="form-control" name="password"
+          placeholder="Enter Password">
+
+        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          <small class="text-danger" *ngIf="loginForm.get('password')?.errors?.['required']">
+            Password is required
+          </small>
+
+          <small class="text-danger" *ngIf="loginForm.get('password')?.errors?.['pattern']">
+            Password must be 4-50 characters and include uppercase, lowercase, number and special character.
+          </small>
+          <!-- Backend validation -->
+          <small class="text-danger" *ngIf="validationErrors?.password">
+            {{ validationErrors.password }}
+          </small>
+
+        </div>
+
+
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">
+        Login
+      </button>
+    </form>
+
+    <p class="text-center mt-3">
+      Don't have an account?
+      <a routerLink="/register">Sign Up</a>
+    </p>
+  </div>
+</div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body">
+        ✅ Profile updated successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body" id="errorToastMessage">
+        ❌ Something went wrong!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>

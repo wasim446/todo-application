@@ -1,0 +1,645 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>To Do App Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="dashboard.css" rel="stylesheet" type="text/css">
+    <link href="fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <!-- <link href="src/styles.css" rel="stylesheet"> -->
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+
+                <nav class="navbar navbar-expand-lg navbar-light custom-header shadow-sm px-4 mb-4">
+                    <!-- <a class="navbar-brand fw-bold">To-Do Dashboard</a> -->
+
+                    <div class="brand nav-left">
+                        <!-- <a routerLink="/" class="brand-link">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png" alt="To Do Logo"
+                                class="logo" />
+                            <span class="brand-text"></span>
+                        </a> -->
+                        <a routerLink="/dashboard" class="brand">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png" alt="Logo"
+                                class="logo" />
+                            <!-- <span class="brand-title">TaskFlow</span> -->
+                        </a>
+
+                        <nav class="nav-links">
+                            <a routerLink="/dashboard" routerLinkActive="active-link" class="nav-item">
+                                Home
+                            </a>
+
+
+                            <a *ngIf="isAdmin" routerLink="/admin/dashboard" routerLinkActive="active-link"
+                                class="nav-item admin-link">
+                                Admin Panel
+                            </a>
+                        </nav>
+
+
+                    </div>
+
+                    <div class="ms-auto d-flex align-items-center">
+
+                        <!-- Search -->
+                        <!-- <div class="input-group me-3" style="width: 250px;">
+                            <div class="search-container">
+                                <input type="text" class="search-input" placeholder="Search tasks by title..."
+                                    [(ngModel)]="searchTerm" />
+                                <button class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="search-container">
+                            <div class="input-group search-box" style="width: 350px;">
+
+                                <input type="text" class="search-input" placeholder="Search tasks by title..."
+                                    [(ngModel)]="searchTerm" />
+
+                                <button class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+                                </button>
+
+                            </div>
+                        </div> -->
+
+                        <div class="header-right">
+                            <div class="search-wrapper">
+                                <input type="text" placeholder="Search tasks by title..." [(ngModel)]="searchTerm" />
+                                <button class="search-btn">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+
+                            <!-- <img src="assets/profile.jpg" class="profile-img" alt="Profile" /> -->
+
+                        </div>
+
+
+
+
+
+                        <!-- Profile -->
+                        <div class="profile-menu">
+                            <img *ngIf="profilePhoto; else defaultImg" [src]="profilePhoto"
+                                class="rounded-circle avatar dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" style="cursor: pointer;" />
+
+                            <ng-template #defaultImg>
+                                <img src="assets/default-user.png" class="rounded-circle avatar dropdown-toggle"
+                                    role="button" data-bs-toggle="dropdown" style="cursor: pointer;" />
+                            </ng-template>
+                            <!-- <img *ngIf="profilePhoto; else defaultImg" [src]="profilePhoto" class="avatar" /> -->
+
+
+                            <ul class="dropdown-menu dropdown-menu-end dropdown">
+                                <li><button type="button" class="dropdown-item" (click)="profile()">
+                                        Profile
+                                    </button></li>
+
+                                <!-- <button routerLink="/profile">Profile</button> -->
+                                <li><button class="dropdown-item text-danger logout" (click)="logout()">Logout</button>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+
+
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            (click)="downloadReport()">
+
+                            <i class="fas fa-download fa-sm text-white-50 me-2"></i>
+                            Generate Report
+
+                        </button>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2 bg-total">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2 summary-card">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total Tasks</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ totalElements }}
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="bi bi-list-task text-gray-300 summary-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2 bg-completed">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2 summary-card">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Completed Tasks</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ completedCount }}
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="bi bi-check-circle-fill text-gray-300 summary-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2 bg-pending">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2 summary-card">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pending
+                                                Tasks
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{
+                                                        pendingCount }}</div>
+                                                </div>
+                                                <!-- <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar"
+                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="bi bi-hourglass-split text-gray-300 summary-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2 bg-upcoming">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2 summary-card">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Upcomming</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="bi bi-calendar-event text-gray-300 summary-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="chart-card" [hidden]="totalElements === 0">
+                        <h4 class="chart-title">Task Status Overview</h4>
+
+                        <!-- Chart Only -->
+                        <div class="chart-wrapper">
+                            <canvas #statusChartCanvas></canvas>
+                        </div>
+
+                        <!-- Progress Section OUTSIDE wrapper -->
+                        <div class="progress-summary">
+                            <h5>Overall Progress</h5>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" [style.width.%]="getCompletionPercentage()">
+                                </div>
+                            </div>
+                            <p>{{ getCompletionPercentage() }}% Completed</p>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <!-- <h6 class="m-0 font-weight-bold text-primary">My To-Do List</h6> -->
+
+                                    <h6 class="section-title">
+                                        <img src="assets/images/TodoIcon.png" class="todo-icon">
+                                        My To-Do List
+                                    </h6>
+
+                                    <!-- <div class="dropdown no-arrow"> -->
+                                    <!-- <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a> -->
+                                    <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div> -->
+                                    <!-- </div> -->
+                                </div>
+
+                                <!-- Card Body -->
+
+                                <div class="card-body">
+                                    <div class="chart-area">
+
+
+                                        <div class="container">
+
+                                            <!-- Add Task -->
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <!-- LEFT SIDE -->
+                                                <h4 class="mb-0">My Tasks</h4>
+                                                <!-- RIGHT SIDE (Group Together) -->
+                                                <div class="d-flex align-items-center gap-3">
+
+                                                    <!-- Sort Section -->
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <span class="fw-semibold text-muted small mb-0">Sort By:</span>
+
+                                                        <select class="sort-dropdown" [(ngModel)]="selectedSort"
+                                                            (change)="onSortChange()">
+
+                                                            <option value="latest">Latest First</option>
+                                                            <option value="oldest">Oldest First</option>
+                                                            <option value="titleAsc">Title A–Z</option>
+                                                            <option value="titleDesc">Title Z–A</option>
+                                                            <option value="completed">Completed First</option>
+                                                            <option value="pending">Pending First</option>
+
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- Add Button -->
+                                                    <button class="btn btn-primary" data-bs-toggle="modal"
+                                                        (click)="openNewTask()" data-bs-target="#taskModal">
+                                                        + Add Task
+                                                    </button>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!-- Task Cards -->
+                                            <!-- Task Cards -->
+                                            <div class="row">
+                                                <div class="container mt-4">
+                                                    <div class="row g-3">
+
+                                                        <!-- Task Grid Layout -->
+                                                        <div class="col-12 col-sm-6 col-md-3 col-lg-3"
+                                                            *ngFor="let task of filteredTasks; trackBy: trackById">
+
+                                                            <div
+                                                                class="card shadow-sm h-100 position-relative p-3 task-card">
+
+                                                                <!-- 3 DOTS MENU -->
+                                                                <div class="task-header">
+                                                                    <button class="menu-btn" type="button"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <i class="bi bi-three-dots-vertical"></i>
+                                                                    </button>
+
+                                                                    <ul class="dropdown-menu dropdown-menu-end">
+
+                                                                        <li>
+                                                                            <button class="dropdown-item"
+                                                                                (click)="openTask(task)">
+                                                                                Open Task
+                                                                            </button>
+                                                                        </li>
+                                                                        <li>
+                                                                            <button class="dropdown-item"
+                                                                                (click)="toggleStatus(task)">
+                                                                                {{ task.completed ? 'Mark as Pending' :
+                                                                                'Mark as Completed' }}
+                                                                            </button>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <button class="dropdown-item"
+                                                                                (click)="editTask(task)">
+                                                                                Edit
+                                                                            </button>
+                                                                        </li>
+
+                                                                        <!-- Delete -->
+                                                                        <li>
+                                                                            <button class="dropdown-item text-danger"
+                                                                                (click)="deleteTask(task.id)">
+                                                                                Delete
+                                                                            </button>
+                                                                        </li>
+
+
+                                                                    </ul>
+                                                                </div>
+
+                                                                <div
+                                                                    class="task-meta d-flex justify-content-between align-items-center mb-1">
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-calendar-alt me-1"></i>
+                                                                        {{ task.createdDate | date:'dd MMM yyyy, hh:mm
+                                                                        a' }}
+                                                                    </small>
+                                                                </div>
+
+                                                                <!-- TITLE -->
+                                                                <h5 class="fw-bold task-title">
+                                                                    {{ task.title }}
+                                                                </h5>
+
+                                                                <!-- DESCRIPTION -->
+                                                                <p class="text-muted task-desc">
+                                                                    {{ task.description }}
+                                                                </p>
+
+                                                                <!-- STATUS BADGE (Fixed Bottom Right Small) -->
+                                                                <span class="badge status-badge"
+                                                                    [ngClass]="task.completed ? 'bg-success' : 'bg-warning text-dark'">
+                                                                    {{ task.completed ? 'Completed' : 'Pending' }}
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- task grid End -->
+
+
+                                            <div class="pagination-container">
+
+                                                <!-- Prev Button -->
+                                                <button class="page-btn nav-btn" (click)="changePage(currentPage - 1)"
+                                                    [disabled]="currentPage === 1">
+                                                    Prev
+                                                </button>
+
+                                                <!-- Page Numbers -->
+                                                <button *ngFor="let page of [].constructor(totalPages); let i = index"
+                                                    class="page-btn" [class.active]="currentPage === i + 1"
+                                                    (click)="changePage(i + 1)">
+                                                    {{ i + 1 }}
+                                                </button>
+
+                                                <!-- Next Button -->
+                                                <button class="page-btn nav-btn" (click)="changePage(currentPage + 1)"
+                                                    [disabled]="currentPage === totalPages">
+                                                    Next
+                                                </button>
+
+                                            </div>
+
+
+
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Model  -->
+
+    <!-- Task Modal -->
+    <div class="modal fade" id="taskModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" [(ngModel)]="task.title">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" [(ngModel)]="task.description"></textarea>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" [(ngModel)]="task.completed">
+                        <label class="form-check-label">
+                            Mark as Completed
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                    <button class="btn btn-success" (click)="saveTask()">
+                        Save Task
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Full Task Description Model -->
+
+    <div class="modal fade" id="viewTaskModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{ selectedTask?.title }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p style="white-space: pre-wrap;">
+                        {{ selectedTask?.description }}
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Gree Toast Message. -->
+
+    <!-- Success Toast -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ✅ Task added successfully!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Error Toast -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="errorToastMessage">
+                    ❌ Something went wrong!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+
+</body>

@@ -1,0 +1,70 @@
+<div class="manage-roles">
+
+    <h2 class="manageRoles">Manage Roles</h2>
+
+    <div class="users-header">
+        <div class="search-container">
+
+            <div class="search-users">
+                <div class="search-users-label">
+                    Search User:
+                </div>
+
+
+                <input type="text" class="search-input" placeholder="Search by name or email" [(ngModel)]="searchUser"
+                    (input)="searchUsers()" />
+            </div>
+            <!-- <span class="totalUsers">Total Users: {{ totalUsers }}</span> -->
+
+        </div>
+        <div class="total-users">
+            Total Users: <span>{{ filteredUsers.length }}</span>
+        </div>
+
+    </div>
+
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Current Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let user of filteredUsers">
+
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    <span class="role-badge" [ngClass]="{
+    'admin-role': isAdmin(user),
+    'user-role': !isAdmin(user)
+  }">
+                        {{ isAdmin(user) ? 'Admin Role' : 'User Role' }}
+                    </span>
+                </td>
+                <td>
+                    <!-- Spinner while updating -->
+                    <div *ngIf="loadingUserId === user.id">
+                        <span class="spinner-border spinner-border-sm"></span>
+                    </div>
+                    <label class="switch"  *ngIf="loadingUserId !== user.id">
+                        <input type="checkbox" [checked]="user.roles.some(r => r.name === 'ROLE_ADMIN')" (change)="toggleRole(user, $event.target.checked)"  [disabled]="loadingUserId === user.id">
+                        <span class="slider round"></span>
+                    </label>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

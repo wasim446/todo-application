@@ -1,0 +1,119 @@
+<div class="system-logs-container">
+
+    <h2 class="page-title">System Logs</h2>
+
+     <div class="users-header">
+        <div class="search-container">
+
+            <div class="search-users">
+                <div class="search-users-label">
+                    Search Logs:
+                </div>
+
+                <input type="text" class="search-input" placeholder="Search by email, action and message" [(ngModel)]="searchLog"
+                    (input)="searchLogs()" />
+            </div>
+            <!-- <span class="totalUsers">Total Users: {{ totalUsers }}</span> -->
+
+        </div>
+        <div class="total-logs">
+            Total Logs: <span>{{ allLogs.length }}</span>
+        </div>
+
+    </div>
+
+
+    <!-- 🔍 FILTER SECTION (Optional but recommended) -->
+    <div class="filters-container">
+        <input type="date" [(ngModel)]="fromDate">
+
+        <input type="date" [(ngModel)]="toDate">
+
+
+        <select [(ngModel)]="module">
+            <option value="">All Modules</option>
+            <option value="USER">User</option>
+            <option value="ROLE">Role</option>
+            <option value="TASK">Task</option>
+        </select>
+
+        <select [(ngModel)]="status">
+            <option value="">All Status</option>
+            <option value="SUCCESS">Success</option>
+            <option value="FAILED">Failed</option>
+        </select>
+
+        <button class="btn-filter" (click)="applyFilters()">Apply</button>
+    </div>
+
+    <!-- 📊 LOG TABLE -->
+    <div class="table-container">
+        <table class="logs-table">
+
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Timestamp</th>
+                    <th>Module</th>
+                    <th>Action</th>
+                    <th>Performed By</th>
+                    <th>Target ID</th>
+                    <th>IP Address</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let log of filteredLogs">
+
+                    <!-- ✅ STATUS ICON -->
+                    <td>
+                        <span *ngIf="log.status === 'SUCCESS'" class="status success"></span>
+                        <span *ngIf="log.status === 'FAILED'" class="status failed"></span>
+                    </td>
+
+                    <!-- 📅 TIMESTAMP -->
+                    <td>{{ log.timestamp | date:'medium' }}</td>
+
+                    <!-- 📦 MODULE -->
+                    <td>{{ log.module }}</td>
+
+                    <!-- ⚙ ACTION -->
+                    <td>{{ log.action }}</td>
+
+                    <!-- 👤 ADMIN -->
+                    <td>{{ log.performedBy }}</td>
+
+                    <!-- 🎯 TARGET -->
+                    <td>{{ log.targetId }}</td>
+
+                    <!-- 🌐 IP -->
+                    <td>{{ log.ipAddress }}</td>
+
+                    <!-- 📝 MESSAGE -->
+                    <td class="message">{{ log.message }}</td>
+
+                </tr>
+
+                <!-- EMPTY STATE -->
+                <tr *ngIf="allLogs.length === 0">
+                    <td colspan="8" class="no-data">
+                        No logs found
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <!-- 📄 PAGINATION -->
+    <div class="pagination">
+        <button (click)="prevPage()" [disabled]="page === 0">Prev</button>
+
+        <span>Page {{ page + 1 }}</span>
+
+        <button (click)="nextPage()">Next</button>
+    </div>
+
+</div>

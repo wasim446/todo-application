@@ -1,0 +1,10 @@
+.app-wrapper {
+    padding-left: 0;
+    /* 🔥 default NO sidebar */
+    transition: padding-left 0.3s ease;
+}
+
+footer {
+    position: relative;
+    z-index: 1;
+}

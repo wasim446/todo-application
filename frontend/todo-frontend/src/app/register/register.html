@@ -1,0 +1,127 @@
+<html>
+
+<head>
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow p-4" style="width: 400px;">
+            <h3 class="text-center mb-4">Create Account</h3>
+
+            <form (ngSubmit)="registerUser()" [formGroup]="registerForm">
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" formControlName="name" class="form-control" placeholder="Enter Full Name"
+                        name="name">
+
+                    <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+                        <small class="text-danger" *ngIf="registerForm.get('name')?.errors?.['required']">
+                            Name is required
+                        </small>
+
+                        <!-- Backend validation -->
+                        <small class="text-danger" *ngIf="validationErrors?.name">
+                            {{ validationErrors.name }}
+                        </small>
+
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" formControlName="email" class="form-control" placeholder="Enter email"
+                        name="email">
+
+                    <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+                        <small class="text-danger" *ngIf="registerForm.get('email')?.errors?.['required']">
+                            Email is required
+                        </small>
+
+                        <small class="text-danger" *ngIf="registerForm.get('email')?.errors?.['pattern']">
+                            Enter valid email address
+                        </small>
+
+                        <!-- Backend validation -->
+                        <small class="text-danger" *ngIf="validationErrors?.email">
+                            {{ validationErrors.email }}
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" formControlName="password" class="form-control" placeholder="Create password"
+                        name="password">
+
+                    <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+                        <small class="text-danger" *ngIf="registerForm.get('password')?.errors?.['required']">
+                            Password is required
+                        </small>
+
+                        <small class="text-danger" *ngIf="registerForm.get('password')?.errors?.['pattern']">
+                            Password must be 4-50 characters and include uppercase, lowercase, number and special
+                            character.
+                        </small>
+
+                        <!-- Backend validation -->
+                        <small class="text-danger" *ngIf="validationErrors?.password">
+                            {{ validationErrors.password }}
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <!-- <div *ngIf="successMessage" class="alert alert-success">
+                    {{ successMessage }}
+                </div>
+
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                    {{ errorMessage }}
+                </div> -->
+
+                <button type="submit" class="btn btn-success w-100" [disabled]="registerForm.invalid">
+                    Register
+                </button>
+            </form>
+
+            <p class="text-center mt-3">
+                Already have an account?
+                <a routerLink="/login">Login</a>
+            </p>
+        </div>
+    </div>
+
+
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ✅ Profile updated successfully!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="errorToastMessage">
+                    ❌ Something went wrong!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

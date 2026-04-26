@@ -1,0 +1,239 @@
+<div class="profile-wrapper" *ngIf="!loading; else loadingTpl">
+
+    <div class="profile-card">
+
+        <h2 class="title">My Profile</h2>
+
+        <!-- ================= PHOTO SECTION ================= -->
+        <div class="photo-section">
+
+            <div class="photo-preview">
+                <!-- <img *ngIf="previewUrl; else noImage" [src]="previewUrl" alt="Profile Photo" /> -->
+                <img [src]="previewUrl" width="300" height="300" />
+                <ng-template #noImage>
+                    <div class="placeholder">
+                        No Photo
+                    </div>
+                </ng-template>
+            </div>
+
+            <div class="upload-section">
+                <label class="select-btn">
+                    Select Photo
+                    <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+                </label>
+                <button class="btn btn-primary" type="button" (click)="uploadPhoto()" [disabled]="!selectedFile">
+                    Upload Photo
+                </button>
+            </div>
+
+        </div>
+
+        <!-- ================= FORM ================= -->
+        <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="profile-form">
+
+            <!-- ===== Personal Info ===== -->
+            <h3 class="section-title">Personal Information</h3>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" formControlName="fullName" />
+
+                    <!-- frontend validation -->
+                    <small class="text-danger" *ngIf="profileForm.get('fullName')?.errors?.['required']
+                && profileForm.get('fullName')?.touched">
+                        Full name is required
+                    </small>
+
+                    <!-- Backend validation -->
+                    <small class="text-danger" *ngIf="validationErrors?.fullName">
+                        {{ validationErrors.fullName }}
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" formControlName="dateOfBirth" [max]="todayDate" />
+
+                    <small class="text-danger" *ngIf="profileForm.get('dateOfBirth')?.invalid 
+              && profileForm.get('dateOfBirth')?.touched">
+                        Date of birth is required
+                    </small>
+
+
+                    <small class="text-danger" *ngIf="validationErrors?.dateOfBirth">
+                        {{ validationErrors.dateOfBirth }}
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>Street</label>
+                    <input type="text" formControlName="street" />
+
+                    <small class="text-danger" *ngIf="profileForm.get('street')?.invalid 
+              && profileForm.get('street')?.touched">
+                        Street is required
+                    </small>
+
+
+                    <small class="text-danger" *ngIf="validationErrors?.street">
+                        {{ validationErrors.street }}
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" formControlName="city" />
+
+                    <small class="text-danger" *ngIf="profileForm.get('city')?.invalid 
+              && profileForm.get('city')?.touched">
+                        City is required
+                    </small>
+
+
+                    <small class="text-danger" *ngIf="validationErrors?.city">
+                        {{ validationErrors.city }}
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" formControlName="state" />
+
+                    <small class="text-danger" *ngIf="profileForm.get('state')?.invalid 
+              && profileForm.get('state')?.touched">
+                        State is required
+                    </small>
+
+
+                    <small class="text-danger" *ngIf="validationErrors?.state">
+                        {{ validationErrors.state }}
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" formControlName="country" />
+
+                    <small class="text-danger" *ngIf="profileForm.get('country')?.invalid 
+              && profileForm.get('country')?.touched">
+                        Country is required
+                    </small>
+
+
+                    <small class="text-danger" *ngIf="validationErrors?.country">
+                        {{ validationErrors.country }}
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>Postal Code</label>
+                    <input type="text" formControlName="postalCode" />
+
+                    <small class="text-danger" *ngIf="profileForm.get('postalCode')?.invalid 
+              && profileForm.get('postalCode')?.touched">
+                        Postal Code is required
+                    </small>
+
+
+                    <small class="text-danger" *ngIf="validationErrors?.postalCode">
+                        {{ validationErrors.postalCode }}
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" formControlName="phoneNumber" />
+
+                    <small class="text-danger" *ngIf="profileForm.get('phoneNumber')?.invalid 
+              && profileForm.get('phoneNumber')?.touched">
+                        Phone Number is required
+                    </small>
+
+                    <small class="text-danger" *ngIf="validationErrors?.phoneNumber">
+                        {{ validationErrors.phoneNumber }}
+                    </small>
+                </div>
+
+            </div>
+
+            <!-- ===== Professional Info ===== -->
+            <h3 class="section-title">Professional Information</h3>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" formControlName="title" />
+                    <small class="text-danger" *ngIf="validationErrors?.title">
+                        {{ validationErrors.title }}
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>Experience (Years)</label>
+                    <input type="number" formControlName="experience" />
+                    <small class="text-danger" *ngIf="validationErrors?.experience">
+                        {{ validationErrors.experience }}
+                    </small>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Skills (comma separated)</label>
+                    <input type="text" formControlName="skills" />
+                    <small class="text-danger" *ngIf="validationErrors?.skills">
+                        {{ validationErrors.skills }}
+                    </small>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Bio</label>
+                    <textarea rows="4" formControlName="bio"></textarea>
+                    <small class="text-danger" *ngIf="validationErrors?.bio">
+                        {{ validationErrors.bio }}
+                    </small>
+                </div>
+
+            </div>
+
+            <!-- ===== Actions ===== -->
+            <div class="action-section">
+                <button class="btn btn-primary" type="submit" [disabled]="profileForm.invalid">
+                    Save Profile
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<ng-template #loadingTpl>
+    <div class="loading">Loading Profile...</div>
+</ng-template>
+
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                ✅ Profile updated successfully!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body" id="errorToastMessage">
+                ❌ Something went wrong!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>

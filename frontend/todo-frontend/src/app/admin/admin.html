@@ -1,0 +1,57 @@
+<div class="admin-dashboard">
+    <div class="admin-wrapper" [class.collapsed]="isSidebarCollapsed">
+
+        <!-- ===== Sidebar ===== -->
+        <aside class="sidebar">
+            <h2 class="logo">Admin Panel</h2>
+
+            <nav>
+                <ul>
+                    <li><a routerLink="/admin/dashboard" class="active">Dashboard</a></li>
+                    <li><a routerLink="/admin/manageUsers">Manage Users</a></li>
+                    <li><a routerLink="/admin/manageRoles">Manage Roles</a></li>
+
+                    <!-- Reports with Submenu -->
+                    <li class="menu-item" (mouseenter)="onHover(true)" (mouseleave)="onHover(false)">
+                        <a (click)="toggleReports()">Reports ▸</a>
+
+                        <!-- RIGHT SIDE SUBMENU -->
+                        <ul class="submenu-right" *ngIf="isSubMenuVisible" [class.open]="isReportsOpen || isHovering" >
+                            <li><a (click)="navigateAndClose('/admin/reports')">Reports Dashboard</a></li>
+                            <li><a (click)="navigateAndClose('/admin/system-logs')">System Logs</a></li>
+                        </ul>
+                    </li>
+                    <li><a routerLink="/dashboard">Back to User Dashboard</a></li>
+                    <li> <button class="sidebar-link" (click)="logout()">
+                            Logout
+                        </button></li>
+                </ul>
+            </nav>
+        </aside>
+
+
+        <!-- ===== Main Content ===== -->
+        <div class="main-content">
+
+            <!-- Top Header -->
+            <div class="top-header">
+                <button class="toggle-btn" (click)="toggleSidebar()">
+                    ☰
+                </button>
+                <h1 class="welcome-title">Welcome, Admin</h1>
+            </div>
+
+            <!-- Your existing dashboard content below -->
+            <p class="subtitle">System Overview & Management</p>
+
+
+            <router-outlet></router-outlet>
+
+
+            <!-- Move here -->
+            <!-- ===== Statistics Cards ===== -->
+
+
+        </div>
+    </div>
+</div>
