@@ -1,0 +1,33 @@
+
+# ===============================
+# INTELLIJ / IDE
+# ===============================
+.idea/
+*.iml
+
+# ===============================
+# SPRING BOOT / MAVEN
+# ===============================
+backend/todo/target/
+backend/todo/.idea/
+backend/todo/uploads/
+
+# secret config
+backend/todo/src/main/resources/application.properties
+backend/todo/.env
+
+# ===============================
+# ANGULAR / NODE
+# ===============================
+frontend/todo-frontend/node_modules/
+frontend/todo-frontend/dist/
+frontend/todo-frontend/.angular/
+frontend/todo-frontend/.vscode/
+
+# logs
+npm-debug.log
+
+# OS
+.DS_Store
+Thumbs.db
+
