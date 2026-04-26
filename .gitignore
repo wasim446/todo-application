@@ -2,6 +2,14 @@
 # ===============================
 # INTELLIJ / IDE
 # ===============================
+target/
+*.log
+*.class
+*.jar
+*.war
+*.env
+application-local.properties
+
 .idea/
 *.iml
 
@@ -23,6 +31,16 @@ frontend/todo-frontend/node_modules/
 frontend/todo-frontend/dist/
 frontend/todo-frontend/.angular/
 frontend/todo-frontend/.vscode/
+
+.angular/
+dist/
+coverage/
+
+
+# IDE
+.vscode/
+.idea/
+*.iml
 
 # logs
 npm-debug.log
