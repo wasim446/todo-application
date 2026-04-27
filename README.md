@@ -15,7 +15,7 @@ frontend/todo-frontend → Angular App
 ## Run Backend
 1. Set Environment Variables:
    - JWT_SECRET
-   - DB_PASSWORD
+   - PASSWORD
 2. Run:
 
 mvn spring-boot:run
