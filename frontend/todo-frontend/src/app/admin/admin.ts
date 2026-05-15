@@ -4,18 +4,13 @@ import { Auth } from '../services/auth';
 import { RouterLink, NavigationEnd } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Task } from '../model/task';
 import { NgZone } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CreateTask } from '../model/create-task';
-import { error } from 'console';
 import { UserService } from '../services/user';
-import { PageResponse } from '../model/page-response.model';
-import Chart from 'chart.js/auto';
-import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
 import { TaskService, AllTask } from '../core/services/alltask';
@@ -68,7 +63,7 @@ export class Admin implements OnInit {
         .pipe(filter(event => event instanceof NavigationEnd))
         .subscribe(() => {
           console.log("Route changed → closing menu");
-          this.isReportsOpen = false;    // 🔥 always reset after navigation
+          this.isReportsOpen = false;    // always reset after navigation
         });
       if (this.isBrowser) {
         document.body.classList.add('has-sidebar');
