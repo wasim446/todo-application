@@ -14,14 +14,14 @@ import java.util.Base64;
 @EnableAspectJAutoProxy
 public class TodoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TodoApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(TodoApplication.class, args);
         System.out.println("ToDo Full stack application is running...");
 
 //        var key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 //        String base64 = Base64.getEncoder().encodeToString(key.getEncoded());
-//        System.out.println(base64);
+//        System.out.println("Base 64 encode : " + base64);
 
-	}
+    }
 
 }
