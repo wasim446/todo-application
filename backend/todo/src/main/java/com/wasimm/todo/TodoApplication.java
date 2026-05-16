@@ -20,7 +20,7 @@ public class TodoApplication {
 
 //        var key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 //        String base64 = Base64.getEncoder().encodeToString(key.getEncoded());
-//        System.out.println("Base 64 encode : " + base64);
+//        System.out.println(base64);
 
     }
 
